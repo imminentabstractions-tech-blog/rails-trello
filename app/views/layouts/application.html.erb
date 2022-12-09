@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trello</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <style>
+      html {
+        <% @themes.each do |theme| %>
+          --theme-<%= theme.name %>-light: <%= theme.light_color %>;
+          --theme-<%= theme.name %>-dark: <%= theme.dark_color %>;
+        <% end %>
+      }
+    </style>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="<%= @color_theme ? "theme-#{@color_theme}" : '' %> bg-[var(--theme-page-background)]">
+    <nav class="bg-[var(--theme-nav-background)] flex items-center py-[6px] px-[4px] gap-4">
+      <%= heroicon "squares-2x2", variant: 'outline', options: {class: 'w-[20px] h-[20px] text-white ml-4'} %>
+      <div class="h-[32px] w-[75px] py-2">
+        <%= image_tag "trello-logo.gif", height: 15  %>
+      </div>
+    </nav>
+    <main class="container mx-auto">
+      <%= yield %>
+    </main>
+  </body>
+</html>

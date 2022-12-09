@@ -1,0 +1,82 @@
+<script>
+  document.addEventListener('alpine:init', () => {
+      Alpine.data('')
+  })
+</script>
+
+<div data-controller="board" class="flex flex-col w-full max-w-[825px] mx-auto pt-[120px]">
+
+  <div data-board-target="menu" class="hidden">
+    <section class="flex flex-col w-[304px] shadow-lg p-3 bg-white">
+      <header class="flex justify-center items-center border-solid border-b-[1px] text-[#5e6c84] relative">
+        <span class=""></span>
+        <span class="text-sm p-[13px]">Create Board</span>
+        <button class="close-modal">
+          <%= heroicon "x-mark", options: {class: 'w-[16px] absolute right-0'} %>
+        </button>
+      </header>
+
+      <div class="w-full flex justify-center">
+        <div data-board-target="image">
+          <%= image_tag("board-preview.svg") %>
+        </div>
+      </div>
+
+      <form data-action="click->board#formValueChange" >
+        <fieldset class="grid grid-cols-5 gap-y-2 relative" style="grid-auto-rows: 32px;">
+          <legend class="pb-1 pt-3">Background</legend>
+          <% @themes.each_with_index do |theme, index| %>
+            <label style="--light-color: <%= theme.light_color %>; --dark-color: <%= theme.dark_color %>">
+              <input type="radio" name="color" value="<%= theme.name %>" class="absolute opacity-0 w-0 h-0 peer" <%= index == 0 ? 'checked' : '' %> />
+              <div class="w-[40px] h-[32px] flex justify-center items-center rounded-[3px] cursor-pointer bg-[var(--light-color)] hover:bg-[var(--dark-color)] peer-checked:bg-[var(--dark-color)]">
+                <%= heroicon 'check', options: {class: 'text-white check hidden', width: 16, height: 16} %>
+              </div>
+            </label>
+          <% end %>
+        </fieldset>
+
+        <style>
+          input[name="color"]:checked ~ div .check {
+              display: block;
+          }
+        </style>
+
+        <label>
+          Board title:
+          <input type="text" name="name" />
+        </label>
+      </form>
+
+    </section>
+  </div>
+
+
+
+  <div class="flex items-center gap-x-3 mb-2">
+    <%= heroicon 'user', variant: :outline, options: {class: 'w-[24px] h-[24px]'} %>
+    <h3 class="font-bold">Your Boards</h3>
+  </div>
+  <div>
+    <ul class="flex flex-row gap-x-4">
+
+        <% @boards.each do |board| %>
+            <li class="py-1">
+                <a href="/board/<%= board.id %>">
+                  <div class="flex w-[194px] h-[96px] rounded-[3px] p-2" style="background-color: var(--theme-<%= board.color %>-dark);">
+                    <span class="is-size-3 text-white font-bold"><%= board.title %></span>
+                  </div>
+                </a>
+            </li>
+        <% end %>
+
+      <li class="py-1" data-action="click->board#showModal" data-board-target="button">
+        <div class="flex justify-center items-center w-[194px] h-[96px] rounded-[3px] cursor-pointer" style="background-color: #091e420a;">
+          <span class="text-sm text-[#172b4d]">Create New Board</span>
+        </div>
+
+      </li>
+
+    </ul>
+
+  </div>
+</div>
