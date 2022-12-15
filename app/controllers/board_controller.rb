@@ -4,7 +4,6 @@ require_relative '../../lib/Theme'
 class BoardController < ApplicationController
   def index
     @boards = Board.all
-
     # @color_theme = 'normal'
   end
 

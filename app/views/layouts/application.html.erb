@@ -19,7 +19,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="<%= @color_theme ? "theme-#{@color_theme}" : '' %> bg-[var(--theme-page-background)]">
+  <body class="<%= @color_theme ? "theme-#{@color_theme}" : '' %> bg-[var(--theme-page-background)] min-h-[100vh]">
     <nav class="bg-[var(--theme-nav-background)] flex items-center py-[6px] px-[4px] gap-4">
       <%= heroicon "squares-2x2", variant: 'outline', options: {class: 'w-[20px] h-[20px] text-white ml-4'} %>
       <div class="h-[32px] w-[75px] py-2">

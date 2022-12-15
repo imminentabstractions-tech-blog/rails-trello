@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import Tether from "tether"
+import tether from "tether"
 
 
 export default class extends Controller {

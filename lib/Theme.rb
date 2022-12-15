@@ -1,5 +1,3 @@
-
-
 module Theme
 
   Theme = Struct.new( :name, :light_color, :dark_color )

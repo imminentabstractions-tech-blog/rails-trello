@@ -4,4 +4,35 @@ import "controllers"
 import Alpine from 'alpinejs'
 
 window.Alpine = Alpine
+
+import Tether from "tether"
+
+Alpine.data('boards', () => ({
+
+    initTether() {
+        this.tether = new Tether({
+            element: this.$refs.modal,
+            target: this.$refs.createBoardButton,
+            targetAttachment: 'top right',
+            attachment: 'top left',
+            targetOffset: '0px 10px',
+        })
+        this.$refs.closeModal.addEventListener('click', () => {
+            this.closeModal()
+        })
+    },
+
+    showModal() {
+        if (!this.tether) {
+            this.initTether()
+        }
+        this.$refs.modal.removeAttribute("hidden")
+
+    },
+
+    closeModal() {
+        this.$refs.modal.setAttribute('hidden', '')
+    }
+}))
+
 Alpine.start()
