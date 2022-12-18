@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "board#index"
   resources :board
+
+  get '/board/:id/showhelper', to: 'board#showhelper'
+
 end

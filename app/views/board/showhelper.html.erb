@@ -1,0 +1,27 @@
+<turbo-frame id='board'>
+    <div class="h-full flex flex-col">
+        <h1><%= @board.title %></h1>
+        <ul x-data="TrelloListManager" class="flex-grow flex">
+            <% @board.lists.all.each_with_index do |list, index| %>
+                <li
+                    x-data="TrelloList(<%= list.id %>, <%= index %>)"
+                    x-init="registerTrelloList($data)"
+                    class="mx-1 inline-block h-full"
+                    @dragover.prevent="onDragOver($event, <%= list.id %>)"
+                    @drop.prevent="onDragSuccessful(<%= list.id %>, $event)"
+                    x-bind:style="`user-select: none; width: 272px; order: ${order};`"
+                    >
+                    <div
+                        draggable="true"
+                        @dragstart="onDragStart(<%= list.id %>, $event)"
+                        @dragend="onDragCancelled()"
+                        class="bg-[#ebecf0]"
+                        >
+                        
+                        <h1 class="px-2 py-[10px]"><%= list.name %></h1>
+                    </div>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+</turbo-frame>

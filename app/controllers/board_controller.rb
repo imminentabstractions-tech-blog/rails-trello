@@ -12,4 +12,9 @@ class BoardController < ApplicationController
     @color_theme = @board.color
   end
 
+  def showhelper
+    @board = Board.find(params[:id])
+    @color_theme = @board.color
+  end
+
 end

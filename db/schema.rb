@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_25_133034) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_15_145437) do
   create_table "boards", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -18,4 +18,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_133034) do
     t.string "color"
   end
 
+  create_table "lists", force: :cascade do |t|
+    t.string "name"
+    t.integer "board_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "order", default: 0
+    t.index ["board_id"], name: "index_lists_on_board_id"
+  end
+
+  add_foreign_key "lists", "boards"
 end
